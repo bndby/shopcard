@@ -1,28 +1,19 @@
 import { LitElement, html } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, state } from 'lit/decorators.js';
 import { router } from '../../router';
-import { styles } from './shopcard-list.styles.ts';
+import { styles } from './shopcard-list.styles';
 
 import '../../components/shopcard-card/shopcard-card';
 
 @customElement('shopcard-list')
 export class ShopCardList extends LitElement {
-  static properties = {
-    cards: { state: true },
-  };
+  @state() cards = [];
 
   static styles = styles;
 
   constructor() {
     super();
-    this.cards = JSON.parse(localStorage.getItem('shopcard')) ?? [
-      {
-        name: 'Green',
-        description: 'Примечание',
-        color: 'green',
-        code: '123456789',
-      },
-    ];
+    this.cards = JSON.parse(localStorage.getItem('shopcard') ?? '[]');
   }
 
   addNew() {

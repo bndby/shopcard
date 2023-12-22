@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { styles } from './shopcard-card.styles.ts';
+import { customElement, property } from 'lit/decorators.js';
+import { styles } from './shopcard-card.styles';
 
 @customElement('shopcard-card')
 export class ShopCardCard extends LitElement {

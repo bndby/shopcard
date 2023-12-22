@@ -1,7 +1,7 @@
 {
   "id": "/",
   "scope": "/",
-  "name": "shop-card",
+  "name": "Бонусные карты",
   "display": "standalone",
   "start_url": "/",
   "short_name": "Бонусные карты",

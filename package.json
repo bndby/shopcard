@@ -17,6 +17,7 @@
   "dependencies": {
     "@thepassle/app-tools": "^0.9.9",
     "@zxing/library": "^0.20.0",
+    "bwip-js": "^4.1.2",
     "lit": "^2.7.2",
     "urlpattern-polyfill": "^7.0.0",
     "workbox-build": "^6.5.2",
@@ -39,3 +40,4 @@
     "bracketSpacing": true
   }
 }
+

@@ -6,7 +6,6 @@ export const styles = css`
     padding: 10px 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    cursor: pointer;
   }
 `;
 

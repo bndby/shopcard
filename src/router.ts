@@ -24,7 +24,7 @@ export const router = new Router({
       render: () => html`<shopcard-list></shopcard-list>`,
     },
     {
-      path: resolveRouterPath('code/:code'),
+      path: resolveRouterPath('code/:code/:type'),
       title: 'Code',
       plugins: [lazy(() => import('./pages/shopcard-code/shopcard-code.js'))],
       render: ({ params }) =>

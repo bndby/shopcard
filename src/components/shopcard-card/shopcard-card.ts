@@ -1,6 +1,7 @@
 import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { styles } from './shopcard-card.styles';
+import { router } from '../../router';
 
 @customElement('shopcard-card')
 export class ShopCardCard extends LitElement {
@@ -11,8 +12,17 @@ export class ShopCardCard extends LitElement {
 
   static styles = styles;
 
+  openCard() {
+    console.log('open card', this.code);
+    router.navigate(`code/${this.code}/${this.type}`);
+  }
+
   render() {
-    return html`<div class="card" style="background-color: ${this.color}">
+    return html`<div
+      class="card"
+      style="background-color: ${this.color}"
+      @click="${this.openCard}"
+    >
       ${this.name}
     </div>`;
   }

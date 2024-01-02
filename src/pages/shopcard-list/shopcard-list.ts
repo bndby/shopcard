@@ -21,8 +21,8 @@ export class ShopCardList extends LitElement {
   }
 
   render() {
-    return html`<main>
-      <h1>Shop Card List</h1>
+    return html`<main class="layout">
+      <h1>Список карт</h1>
       <div class="cards">
         ${this.cards.map(
           ({ code, name, color, description }) =>
@@ -34,7 +34,7 @@ export class ShopCardList extends LitElement {
             ></shopcard-card>`
         )}
       </div>
-      <button @click=${this.addNew}>+ Карта</button>
+      <button @click=${this.addNew}>Добавить карту</button>
     </main>`;
   }
 }

@@ -4,6 +4,8 @@ import { styles } from './shopcard-code.styles';
 import { router } from '../../router';
 import bwipjs from 'bwip-js';
 
+import '../../components/shopcard-codedrawer/shopcard-codedrawer';
+
 @customElement('shopcard-code')
 export class ShopCardCode extends LitElement {
   @property({ type: String }) code = '0000000000000';
@@ -39,7 +41,10 @@ export class ShopCardCode extends LitElement {
 
   render() {
     return html`<div class="code" @click="${this._close}">
-      <div class="barcode"></div>
+      <shopcard-codedrawer
+        .code=${this.code}
+        .type=${this.type}
+      ></shopcard-codedrawer>
       <div class="hint">Нажми в любом месте, чтобы закрыть</div>
       <button @click="${this._edit}" class="edit">Редактировать</button>
     </div>`;

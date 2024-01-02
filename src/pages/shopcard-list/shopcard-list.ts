@@ -25,12 +25,13 @@ export class ShopCardList extends LitElement {
       <h1>Список карт</h1>
       <div class="cards">
         ${this.cards.map(
-          ({ code, name, color, description }) =>
+          ({ code, name, color, description, type }) =>
             html`<shopcard-card
               .code=${code}
               .name=${name}
               .color=${color}
               .description=${description}
+              .type=${type}
             ></shopcard-card>`
         )}
       </div>

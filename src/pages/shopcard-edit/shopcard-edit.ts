@@ -2,10 +2,11 @@ import { LitElement, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { styles } from './shopcard-edit.styles';
 
-import '../../components/shopcard-videoreader/shopcard-videoreader';
+import '../../components/shopcard-codereader/shopcard-codereader';
+import '../../components/shopcard-codedrawer/shopcard-codedrawer';
+
 import { addOrUpdateCardByCode, getCardByCode } from '../../utils/cards';
-import { BarcodeFormat } from '@zxing/library';
-import { BarcodeType } from '../../consts';
+import { router } from '../../router';
 
 @customElement('shopcard-edit')
 export class ShopCardEdit extends LitElement {
@@ -22,27 +23,27 @@ export class ShopCardEdit extends LitElement {
     super();
   }
 
-  firstUpdated() {
+  firstUpdated = () => {
     if (this.code) {
       // карта передана - пробуем ее найти
       this._code = this.code;
 
       const card = getCardByCode(this._code);
-      this._name = card?.name ?? this._code;
-      this._type = card?.type ?? BarcodeType[BarcodeFormat.EAN_13];
+      this._name = card?.name ?? '';
+      this._type = card?.type ?? '';
       this._description = card?.description ?? '';
-      this._color = card?.color ?? '#ccc';
+      this._color = card?.color || '';
     } else {
       // карта не передана -> создаем новую карту
-      this._code = '0000000000000';
-      this._type = BarcodeType[BarcodeFormat.EAN_13];
-      this._name = '0000000000000';
+      this._code = '';
+      this._type = '';
+      this._name = '';
       this._description = '';
       this._color = '#ccc';
     }
-  }
+  };
 
-  _save() {
+  _save = () => {
     addOrUpdateCardByCode({
       code: this._code,
       type: this._type,
@@ -50,20 +51,18 @@ export class ShopCardEdit extends LitElement {
       description: this._description,
       color: this._color,
     });
-    // router.navigate('/');
-  }
+    router.navigate('/');
+  };
 
   _cancel(e: MouseEvent) {
-    // router.navigate('/');
+    router.navigate('/');
     console.log('cancel', e);
-    this._code = 'code';
   }
 
-  _handleRead(data: { code: string; type: string }) {
-    console.log('handle read', data);
+  _handleRead = (data: { code: string; type: string }) => {
     this._code = data.code;
     this._type = data.type;
-  }
+  };
 
   render() {
     console.log('render');
@@ -71,9 +70,15 @@ export class ShopCardEdit extends LitElement {
       <h2>
         ${this.code ? 'Редактировать карту' : 'Новая карта'} ${this._name}
       </h2>
-      <shopcard-videoreader
-        .onRead="${this._handleRead}"
-      ></shopcard-videoreader>
+      ${this._code && this._type
+        ? html`<shopcard-codedrawer
+            .code=${this._code}
+            .type=${this._type}
+          ></shopcard-codedrawer>`
+        : html`<shopcard-codereader
+            .onRead="${this._handleRead}"
+          ></shopcard-codereader>`}
+
       <p>
         <label for="name">Название</label><br />
         <input id="name" type="text" .value=${this._name} />

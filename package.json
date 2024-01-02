@@ -27,6 +27,7 @@
   "devDependencies": {
     "typescript": "^5.0.4",
     "vite": "^4.2.1",
+    "vite-plugin-mkcert": "^1.17.1",
     "vite-plugin-pwa": "^0.14.7"
   },
   "prettier": {
@@ -40,4 +41,3 @@
     "bracketSpacing": true
   }
 }
-

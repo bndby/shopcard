@@ -28,7 +28,10 @@ export const router = new Router({
       title: 'Code',
       plugins: [lazy(() => import('./pages/shopcard-code/shopcard-code.js'))],
       render: ({ params }) =>
-        html`<shopcard-code code="${params.code}"></shopcard-code>`,
+        html`<shopcard-code
+          code="${params.code}"
+          type="${params.type}"
+        ></shopcard-code>`,
     },
     {
       path: resolveRouterPath('edit'),

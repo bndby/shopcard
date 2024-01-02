@@ -14,7 +14,7 @@ export class ShopCardCard extends LitElement {
   static styles = styles;
 
   openCard() {
-    console.log('open card', this.code);
+    console.log('open card', this.code, this.type);
     router.navigate(`code/${this.code}/${this.type}`);
   }
 

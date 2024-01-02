@@ -1,6 +1,5 @@
 import { LitElement, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { router } from '../../router';
 import { styles } from './shopcard-edit.styles';
 
 import '../../components/shopcard-videoreader/shopcard-videoreader';
@@ -10,23 +9,23 @@ import { BarcodeType } from '../../consts';
 
 @customElement('shopcard-edit')
 export class ShopCardEdit extends LitElement {
-  @property({ type: String }) code;
-  @state() _code;
-  @state() _type;
-  @state() _name;
-  @state() _description;
-  @state() _color;
+  @property({ type: String }) code: string = '';
+  @state() _code: string = '';
+  @state() _type: string = '';
+  @state() _name: string = '';
+  @state() _description: string = '';
+  @state() _color: string = '';
 
   static styles = styles;
 
   constructor() {
     super();
-    this._code = this.code;
   }
 
   firstUpdated() {
     if (this.code) {
       // карта передана - пробуем ее найти
+      this._code = this.code;
 
       const card = getCardByCode(this._code);
       this._name = card?.name ?? this._code;
@@ -54,13 +53,13 @@ export class ShopCardEdit extends LitElement {
     // router.navigate('/');
   }
 
-  _cancel(e) {
+  _cancel(e: MouseEvent) {
     // router.navigate('/');
     console.log('cancel', e);
     this._code = 'code';
   }
 
-  _handleRead(data) {
+  _handleRead(data: { code: string; type: string }) {
     console.log('handle read', data);
     this._code = data.code;
     this._type = data.type;

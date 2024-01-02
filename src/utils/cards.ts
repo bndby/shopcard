@@ -1,3 +1,5 @@
+import { BarcodeFormat } from '@zxing/library';
+
 /**
  * Ключ, под которым карты хранятся в LocalStorage
  */
@@ -21,7 +23,7 @@ export type Card = {
  */
 export const getCardByCode = (code: string): Card | undefined => {
   const cardsRaw = localStorage.getItem(LS_KEY) ?? '[]';
-  const cards = JSON.parse(cardsRaw) as Cards[];
+  const cards = JSON.parse(cardsRaw) as Card[];
   const card = cards.find((c: Card) => c.code === code);
   return card;
 };
@@ -31,7 +33,7 @@ export const getCardByCode = (code: string): Card | undefined => {
  */
 export const addOrUpdateCardByCode = (card: Card) => {
   const cardsRaw = localStorage.getItem(LS_KEY) ?? '[]';
-  const cards = JSON.parse(cardsRaw) as Cards[];
+  const cards = JSON.parse(cardsRaw) as Card[];
   const findedCard = cards.find((c: Card) => c.code === card.code);
 
   if (findedCard) {
@@ -54,6 +56,23 @@ export const addOrUpdateCardByCode = (card: Card) => {
     // карты нет в хранилище - добавляем
     cards.push(card);
     localStorage.setItem(LS_KEY, JSON.stringify(cards));
+  }
+};
+
+export const getBarcodeTypeByCode = (code: BarcodeFormat) => {
+  switch (code) {
+    case BarcodeFormat.AZTEC:
+      return 'azteccode';
+    case BarcodeFormat.CODE_39:
+      return 'code39';
+    case BarcodeFormat.CODE_93:
+      return 'code93';
+    case BarcodeFormat.EAN_8:
+      return 'ean8';
+    case BarcodeFormat.EAN_13:
+      return 'ean13';
+    default:
+      return '';
   }
 };
 

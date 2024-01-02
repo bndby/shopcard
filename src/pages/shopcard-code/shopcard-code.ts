@@ -1,8 +1,8 @@
 import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import bwipjs from 'bwip-js';
 import { styles } from './shopcard-code.styles';
 import { router } from '../../router';
+import bwipjs from 'bwip-js';
 
 @customElement('shopcard-code')
 export class ShopCardCode extends LitElement {
@@ -21,7 +21,9 @@ export class ShopCardCode extends LitElement {
       // textcolor: 'ff0000', // Red text
     });
     const svgEl = this.renderRoot.querySelector('.barcode');
-    svgEl.innerHTML = svg;
+    if (svgEl) {
+      svgEl.innerHTML = svg;
+    }
   }
 
   _close() {
@@ -29,7 +31,7 @@ export class ShopCardCode extends LitElement {
     router.navigate('/');
   }
 
-  _edit(event) {
+  _edit(event: MouseEvent) {
     event.stopPropagation();
     console.log('edit code');
     router.navigate(`/edit/${this.code}`);

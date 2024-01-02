@@ -3,15 +3,17 @@ import { customElement, property } from 'lit/decorators.js';
 import { BrowserMultiFormatReader, NotFoundException } from '@zxing/library';
 
 import { styles } from './shopcard-videoreader.styles';
-import { BarcodeType } from '../../consts';
+import { getBarcodeTypeByCode } from '../../utils/cards';
+
+type callbackType = (data: { code: string; type: string }) => void;
 
 @customElement('shopcard-videoreader')
 export class ShopCardEdit extends LitElement {
-  @property() onRead = () => {};
+  @property({ type: Function }) onRead: callbackType = () => {};
 
   static styles = styles;
 
-  _handleRead(data) {
+  _handleRead(data: { code: string; type: string }) {
     this.onRead(data);
   }
 
@@ -58,7 +60,7 @@ export class ShopCardEdit extends LitElement {
               console.log(result.getBarcodeFormat(), result.getText());
               this._handleRead({
                 code: result.getText(),
-                type: BarcodeType[result.getBarcodeFormat()],
+                type: getBarcodeTypeByCode(result.getBarcodeFormat()),
               });
               video?.pause();
             }

@@ -9,6 +9,7 @@ export class ShopCardCard extends LitElement {
   @property() name = '';
   @property() description = '';
   @property() color = '';
+  @property() type = '';
 
   static styles = styles;
 
